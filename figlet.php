@@ -1,7 +1,6 @@
 <link rel=stylesheet href=figlet.css>
 <script src=figlet.js></script>
 <?
-include("/usr/local/share/pear/Text/Figlet.php");
 if(!empty($_GET['width'])) {
   $width=intval($_GET['width']);
 } else {
@@ -178,37 +177,38 @@ $fontsDB = Array(
 );
 
 $twos =  Array(
-    '/[A-Z][\.,b]/', Array('&#9619;','&#9612;'),
+    '/[A-Z][\.,b(\'`]/', Array('&#9619;','&#9612;'),
     '/[_.e,]{2}/', Array('&#9604;','&#9604;'),
-    '/[\.,_][\-]/', Array('&#9604;', '&#9604;'), // curve left
+    '/[\.,_][\-]/', Array('&#9604;', '&#9604;'), 
+    '/_[)db]/', Array('&#9604;', '&#9619;'), 
 
     '/-[\.,]/',  Array('&#9604;','&#9604;'), // curve right
     '/[,._\-][\xb4\']/', Array('&#9604;','&#9600;'), // curve right up
     '/[\xb4`\'][\.,]/', Array('&#9600;','&#9604;'),
 
-    '/\'\|/', Array('&#9600;','&#9608;'),
-
     '/[\\`][\-_]/', Array('&#9600;','&#9604;'), // curve left up
     '/[|][\-_]/', Array('&#9616;','&#9604;'), // curve left up
 
-    '/\|\./', Array('&#9619;','&#9604;'), // anteceding dot
-    '/\.\|/', Array('&#9604;','&#9619;'), // preceding dot
+    '/ [\\\)(>]/', Array('&#9617;','&#9616;'),
+    '/[\/] /', Array('&#9619;','&#9617;'),
+    '/\|\./', Array('&#9619;','&#9604;'), 
+    '/\.\|/', Array('&#9604;','&#9619;'), 
     '/\\\=/', Array('&#9616;','&#9604;'), 
 
     '/d8/', Array('&#9619;','&#9608;'),
     '/db/', Array('&#9616;','&#9612;'),
     '/\|\//', Array('&#9619;','&#9616;'),
+    '/\'\|/', Array('&#9600;','&#9608;'),
 
-    '/\|\|/', Array('&#9619;','&#9608;'),
-    '/[\/] /', Array('&#9619;','&#9617;'),
-    '/ [\\\)(>]/', Array('&#9617;','&#9616;')
+    '/\\\\\//', Array('&#9616;','&#9612;'),
+    '/\|\|/', Array('&#9619;','&#9608;')
 );
 
 $ones = Array(
     '/ /', '&#9617;',
     '/[\-_dobpvmgae]/', '&#9604;',
-    '/[,.;&a-z+?!%@$]/', '&#9618;',  
     '/[\/A-KM-Z|\\\0-79]/', '&#9619;',  
+    '/[,.;&a-z+?!%@$]/', '&#9618;',  
     '/[:L)><\]]/', '&#9612;', 
     '/[(\[]/', '&#9616;', 
     '/[8\#]/', '&#9608;',
@@ -301,13 +301,16 @@ foreach($fontsDB as $font) {
     }
     $newout[] = sprintf("%-" . $maxwidth . "s", $line);
   } 
-  $buffer[] = Array($font, count($newout), encode($newout));
+  echo "<div title='$font'>" . encode($newout) . "</div>";
+  //$buffer[] = Array($font, count($newout), encode($newout));
 }
+/*
 uasort($buffer, 'sorter');
 
 foreach($buffer as $font) {
   list($title, $height, $text) = $font;
   echo "<div title='$title'>$text</div>";
 }
+*/
 echo $encoder_time. "\n";
 echo microtime(true) - $start;
