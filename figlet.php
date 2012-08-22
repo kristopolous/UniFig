@@ -1,6 +1,7 @@
 <link rel=stylesheet href=figlet.css>
 <script src=figlet.js></script>
 <?
+include("/usr/local/share/pear/Text/Figlet.php");
 if(!empty($_GET['width'])) {
   $width=intval($_GET['width']);
 } else {
@@ -21,8 +22,6 @@ $fontsDB = Array(
 "oldbanner", 
 "cyberlarge", 
 "alligator2", 
-"alphabet", 
-"amc3liv1", 
 "amcrazo2", 
 "amcrazor", 
 "amcslash", 
@@ -31,7 +30,6 @@ $fontsDB = Array(
 "amctubes", 
 "amcun1", 
 "arrows", 
-"ascii_new_roman", 
 "avatar", 
 "banner3-D", 
 "banner3", 
@@ -42,9 +40,9 @@ $fontsDB = Array(
 "block", 
 "bolger", 
 "bright", 
+
 "catwalk", 
 "chunky", 
-//"cola", 
 "colossal", 
 "computer", 
 "cosmic", 
@@ -71,13 +69,9 @@ $fontsDB = Array(
 "jacky", 
 "jazmine", 
 "kban", 
-"larry3d", 
 "lcd", 
 "lean", 
-"letters", 
 "lineblocks", 
-"lockergnome", 
-//"marquee", 
 "merlin1",  
 "modular", 
 "nancyj-improved", 
@@ -91,22 +85,16 @@ $fontsDB = Array(
 "puffy", 
 "red_phoenix", 
 "relief", 
-//"relief2", 
-//"reverse", 
 "roman", 
 "rounded", 
 "rozzo", 
 
 // single lines
-"muzzle", 
-"fourtops", 
 "rectangles", 
-"tombstone", 
 "amc3line", 
 "contessa",  
 "konto", 
 "kontoslant", 
-//"maxfour", 
 "madrid", 
 "small", 
 "varsity", 
@@ -119,8 +107,8 @@ $fontsDB = Array(
 "slant", 
 "slide", 
 "slscript", 
-"smallcaps", 
 "smisome1", 
+
 "smscript", 
 "smslant", 
 "soft", 
@@ -128,19 +116,14 @@ $fontsDB = Array(
 "spliff", 
 "stacey", 
 "stampate", 
-"stampatello", 
 "standard", 
-"starstrips", 
 "starwars", 
 "stforek", 
 "stop", 
 "sub-zero", 
 "swan", 
-"tanja", 
 "thick", 
 "thin", 
-//"ticks", 
-//"ticksslant", 
 "tiles", 
 "tinker-toy", 
 "trek", 
@@ -149,7 +132,6 @@ $fontsDB = Array(
 "s-relief", 
 "impossible", 
 
-// big
 "dotmatrix", 
 "amcneko", 
 "amcaaa01", 
@@ -168,24 +150,116 @@ $fontsDB = Array(
 "isometric1", 
 "blocks", 
 
+/*
+"stampatello", 
+"starstrips", 
+"smallcaps", 
+"maxfour", 
+"alphabet", 
+"relief2", 
+"tombstone", 
+"muzzle", 
+"fourtops", 
+"reverse", 
+"letters", 
+"lockergnome", 
+"marquee", 
+"larry3d", 
+"cola", 
+"ascii_new_roman", 
+"tanja", 
+"ticks", 
+"ticksslant", 
+"wetletter",
+*/
+
 "alligator"
-//"wetletter" 
+
 );
 
-function encode($str) {
-  $str = preg_replace('/[\Âaa-z~]/', '~', $str); // 1st lightest grey
-  $str = preg_replace('/[&,;><:\/\\\]/', '?', $str); // 2nd lightest grey
-  $str = preg_replace('/[}\]]/', '!', $str); // right block
-  $str = preg_replace('/[{\[]/', '^', $str); // left block
-  $str = preg_replace('/[Â´\'`"]/', '@', $str); // upper block
-//  $str = preg_replace('/[=]/', '=', $str); // middle block
-  $str = preg_replace('/[e_=\.]/', '%', $str); // lower block
-  $str = preg_replace('/[BWQGMNUPDZRWX8$#|\-]/', ')', $str); // black
-  $str = preg_replace('/[()\w*+]/', 'z', $str); // darker grey
-  $str = str_replace(
-      Array(' ',       ')',      '=',       '~',       '?',       'z',       '!',   '@',        '%',     '^'), 
-      Array('&#9617;', '&#9608;', '&#9644;', '&#9618;', '&#9618;', '&#9619;', '&#9616;', '&#9600;', '&#9604;', '&#9612;'), $str);
-  return $str;
+$twos =  Array(
+    '/[A-Z][\.,b]/', Array('&#9619;','&#9612;'),
+    '/[_.e,]{2}/', Array('&#9604;','&#9604;'),
+    '/[\.,_][\-]/', Array('&#9604;', '&#9604;'), // curve left
+
+    '/-\./',  Array('&#9604;','&#9604;'), // curve right
+    '/[,._\-][\xb4\']/', Array('&#9604;','&#9600;'), // curve right up
+    '/[\xb4`\'][\.,]/', Array('&#9600;','&#9604;'),
+
+    '/\'\|/', Array('&#9600;','&#9608;'),
+
+    '/[\\`][\-_]/', Array('&#9600;','&#9604;'), // curve left up
+    '/[|][\-_]/', Array('&#9616;','&#9604;'), // curve left up
+
+    '/\|\./', Array('&#9619;','&#9604;'), // anteceding dot
+    '/\.\|/', Array('&#9604;','&#9619;'), // preceding dot
+    '/\\\=/', Array('&#9616;','&#9604;'), 
+
+    '/[d][8]/', Array('&#9619;','&#9608;'),
+    '/[d][b]/', Array('&#9616;','&#9612;'),
+    '/\|\//', Array('&#9619;','&#9616;'),
+
+    '/\|\|/', Array('&#9619;','&#9608;'),
+    '/[\/] /', Array('&#9619;','&#9617;'),
+    '/ [\\\)(>]/', Array('&#9617;','&#9616;')
+);
+
+$ones = Array(
+    '/[ .,]/', '&#9617;',
+    '/[\-_dobpmgae]/', '&#9604;',
+    '/[;&a-z:\[\]+?!%@$]/', '&#9618;',  
+    '/[\/A-KM-Z|\\\0-79]/', '&#9619;',  
+    '/[L)><]/', '&#9612;', 
+    '/[(]/', '&#9616;', 
+    '/[8\#]/', '&#9608;',
+    '/[\xb4=~"\'`^*]/', '&#9600;' // upper
+);
+$encoder_time = 0;
+function encode($all) {
+  global $encoder_time, $twos, $ones;
+  $start = microtime(true);
+  $ret = Array();
+  $blank_line = Array();
+  $len = strlen($all[0]);
+  $len_ones = count($ones);
+  $len_twos = count($twos);
+
+  for($ix = 0; $ix < $len; $ix++) {
+    $blank_line[] = 0;
+  }
+
+  foreach($all as $line_in) {
+    $line_out = $blank_line;
+
+    for($ix = 0; $ix < $len; $ix++) {
+      $double = substr($line_in, $ix, 2);
+      $single = $line_in[$ix];
+
+      for($iy = 0; $iy < $len_twos; $iy += 2) {
+        if (preg_match($twos[$iy], $double)) {
+          $repl = $twos[$iy + 1];
+          if(!$line_out[$ix]) {
+            $line_out[$ix] = $repl[0];
+          }
+          $line_out[$ix + 1] = $repl[1];
+          goto loop_out;
+        }
+      }
+
+      if(!$line_out[$ix]) {
+        for($iy = 0; $iy < $len_ones; $iy += 2) {
+          if (preg_match($ones[$iy], $single)) {
+            $line_out[$ix] = $ones[$iy + 1];
+            goto loop_out;
+          }
+        }
+      }
+    loop_out:
+    }
+    $ret[] = implode('', $line_out);
+  }
+  $encoder_time += microtime(true) - $start;
+  return implode("\n", $ret);
 }
 
 function sorter($a, $b) {
@@ -195,6 +269,11 @@ $text = escapeshellarg($_GET['text']);
 $buffer = Array();
 
 $start = microtime(true);
+
+if(isset($_GET['font'])) {
+  $fontsDB = Array($_GET['font']);
+}
+
 foreach($fontsDB as $font) {
   $output = array();
   $newout = array();
@@ -222,7 +301,7 @@ foreach($fontsDB as $font) {
     }
     $newout[] = sprintf("%-" . $maxwidth . "s", $line);
   } 
-  $buffer[] = Array($font, count($newout), encode(implode("\n", $newout)));
+  $buffer[] = Array($font, count($newout), encode($newout));
 }
 uasort($buffer, 'sorter');
 
@@ -230,4 +309,5 @@ foreach($buffer as $font) {
   list($title, $height, $text) = $font;
   echo "<div title='$title'>$text</div>";
 }
+echo $encoder_time. "\n";
 echo microtime(true) - $start;
