@@ -145,7 +145,12 @@ var
   init = false,
   divLookup = {}, 
   itimeout, 
-  lastval;
+  lastval,
+  width = 28 + 30,
+  maxWidthCurrent,
+  preview, 
+  copy, 
+  fontStack = [];
 
 function gen() {
   if(!copy.value.length) {
@@ -154,14 +159,31 @@ function gen() {
   $.get("figlet.php", {
     text: copy.value,
     font: fontDB[currentFont],
-    width: 50
+    width: width,
   }, function(payload) {
-    preview.innerHTML = encode(payload.split('\n'));
+    payload = payload.split('\n');
+    maxWidthCurrent = payload[0].length;
+    preview.innerHTML = encode(payload);
     if(!init) {
       init = true;
       $(".after-text").fadeIn();
     }
   });
+}
+
+function wider() {
+  width += 15;
+  gen();
+  $("#narrower").removeClass("disabled");
+}
+
+function narrower() {
+  if(width > 25) {
+    width -= 15;
+    gen();
+  } else {
+    $("#narrower").addClass("disabled");
+  }
 }
 
 function shuffle(inArray) {
@@ -173,8 +195,6 @@ function shuffle(inArray) {
   }
   return out;
 }
-
-var preview, copy, fontStack = [];
 
 fontDB = shuffle(fontDB);
 
