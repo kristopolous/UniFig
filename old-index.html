@@ -1,5 +1,20 @@
-
-var fontDB = [
+<!doctype html>
+<html>
+  <head>
+<link rel=stylesheet href=figlet.css>
+<style>
+div{width:30%}
+.title{white-space:pre;font-family:"Helvetica Neue",Arial,sans-serif}
+</style>
+</head>
+<body>
+<textarea id=secret></textarea>
+</body>
+<script src=http://code.jquery.com/jquery-1.8.0.min.js></script>
+<script src=unifig.js></script>
+<script>
+  var fontDB = [
+"cybermedium", 
 "roman", 
 "univers", 
 "standard", 
@@ -31,7 +46,6 @@ var fontDB = [
 "amcrazo2", 
 "stforek", 
 "amcrazor", 
-"cybermedium", 
 "amcslder", 
 "amcthin", 
 "amctubes", 
@@ -139,77 +153,48 @@ var fontDB = [
 "sblood", 
 "alligator"
 ];
+//"merlin1",  
+//"ghoulish", 
+//"cricket", 
+//"amcslash", 
+//"kontoslant", 
+//"lcd", 
 
-var 
-  currentFont = 0,
-  init = false,
-  divLookup = {}, 
-  itimeout, 
-  lastval;
+var fLen = 15;
 
-function gen() {
-  if(!copy.value.length) {
-    return;
-  }
-  $.get("figlet.php", {
-    text: copy.value,
-    font: fontDB[currentFont],
-    width: 50
-  }, function(payload) {
-    preview.innerHTML = encode(payload.split('\n'));
-    if(!init) {
-      init = true;
-      $(".after-text").fadeIn();
+function gen(text) {
+  for(var ix = 0; ix < fLen; ix++) {
+    if(!text) {
+      divLookup[fontDB[ix]].html("");
+    } else {
+      $.getJSON("figlet.php", {
+        text: text,
+        font: fontDB[ix],
+        width: 90
+      }, function(payload) {
+        divLookup[payload[0]].html(encode(payload[1]));
+      });
     }
-  });
-}
-
-function shuffle(inArray) {
-  var out = [],
-      index;
-  while(inArray.length) {
-    index = Math.floor(Math.random() * inArray.length);
-    out.push(inArray.splice(index, 1)[0]);
-  }
-  return out;
-}
-
-var preview, copy, fontStack = [];
-
-fontDB = shuffle(fontDB);
-
-function prevFont() {
-  if(fontStack.length) {
-    currentFont = fontStack.pop();
-    gen();
-  }
-  if(!fontStack.length) {
-    $("#prev-font").addClass("disabled");
   }
 }
+	var divLookup = {}, itimeout, lastval;
 
-function nextFont() {
-  fontStack.push(currentFont);
-  currentFont += 1;
-  currentFont %= fontDB.length;
-  $("#prev-font").removeClass("disabled");
-  gen();
-}
-
-window.onload = function(){
-  preview = document.getElementById("preview");
-  copy = document.getElementById("copy");
-  copy.focus();
-
-  copy.onkeyup = function(){
+$(function(){
+  for(var ix = 0; ix < fLen; ix++) {
+    font = fontDB[ix];
+		divLookup[font] = $('<div title="' + font + '"></div>').appendTo(document.body);
+  }
+  $("#secret").focus().keyup(function() {
+    var mythis = this;
     clearTimeout(itimeout);
     itimeout = setTimeout(function(){
-      if(lastval != copy.value) {
-        lastval = copy.value;
-        gen();
+      if(lastval != mythis.value) {
+        lastval = mythis.value;
+        gen(lastval);
       }
     }, 200);
 
-	  copy.focus();
-	}
-}
+	  this.focus();
+	});
+});
+</script>

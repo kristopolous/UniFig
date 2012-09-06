@@ -119,5 +119,5 @@ function encode(all) {
     }
     ret.push(line_out.join(''));
   }
-  return ret.join("<br>");
+  return ret.join("\n");
 }
