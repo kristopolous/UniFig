@@ -1,19 +1,5 @@
-<!doctype html>
-<html>
-  <head>
-<link rel=stylesheet href=figlet.css>
-<style>
-div{width:30%}
-.title{white-space:pre;font-family:"Helvetica Neue",Arial,sans-serif}
-</style>
-</head>
-<body>
-<textarea id=secret></textarea>
-</body>
-<script src=http://code.jquery.com/jquery-1.8.0.min.js></script>
-<script src=unifig.js></script>
-<script>
-  var fontDB = [
+
+var fontDB = [
 "cybermedium", 
 "roman", 
 "univers", 
@@ -153,48 +139,37 @@ div{width:30%}
 "sblood", 
 "alligator"
 ];
-//"merlin1",  
-//"ghoulish", 
-//"cricket", 
-//"amcslash", 
-//"kontoslant", 
-//"lcd", 
 
-var fLen = 15;
+var 
+  currentFont = 0,
+  divLookup = {}, 
+  itimeout, 
+  lastval;
 
 function gen(text) {
-  for(var ix = 0; ix < fLen; ix++) {
-    if(!text) {
-      divLookup[fontDB[ix]].html("");
-    } else {
-      $.getJSON("figlet.php", {
-        text: text,
-        font: fontDB[ix],
-        width: 90
-      }, function(payload) {
-        divLookup[payload[0]].html(encode(payload[1]));
-      });
-    }
-  }
+  $.getJSON("figlet.php", {
+    text: text,
+    font: fontDB[currentFont],
+    width: 90
+  }, function(payload) {
+    preview.innerHTML = encode(payload[1]);
+  });
 }
-	var divLookup = {}, itimeout, lastval;
 
-$(function(){
-  for(var ix = 0; ix < fLen; ix++) {
-    font = fontDB[ix];
-		divLookup[font] = $('<div title="' + font + '"></div>').appendTo(document.body);
-  }
-  $("#secret").focus().keyup(function() {
-    var mythis = this;
+var preview, copy;
+window.onload = function(){
+  preview = document.getElementById("preview");
+  copy = document.getElementById("copy");
+
+  copy.onkeyup = function(){
     clearTimeout(itimeout);
     itimeout = setTimeout(function(){
-      if(lastval != mythis.value) {
-        lastval = mythis.value;
+      if(lastval != copy.value) {
+        lastval = copy.value;
         gen(lastval);
       }
     }, 200);
 
-	  this.focus();
-	});
-});
-</script>
+	  copy.focus();
+	}
+}
