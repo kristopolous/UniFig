@@ -1,5 +1,5 @@
 <?
-$text = escapeshellarg($_GET['text']);
+$text = escapeshellarg(stripslashes($_GET['text']));
 $width = escapeshellarg($_GET['width']);
 $font = escapeshellarg($_GET['font']);
 $output = array();

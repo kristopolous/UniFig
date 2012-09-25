@@ -1,5 +1,9 @@
 
-var fontDB = [
+var sites = {
+  twitter: {
+    width: 44
+  }
+} ,fontDB = [
 "roman", 
 "univers", 
 "standard", 
