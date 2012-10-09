@@ -1,5 +1,7 @@
 
-var sites = {
+var 
+  DEBUG = false,
+  sites = {
   twitter: {
     width: 44
   }
@@ -14,7 +16,7 @@ var sites = {
 "computer", 
 "script", 
 
-"konto", 
+//"konto",  FIX
 "madrid", 
 "basic", 
 "bolger", 
@@ -40,7 +42,7 @@ var sites = {
 "amcthin", 
 "amctubes", 
 "amcun1", 
-"arrows", 
+//"arrows", 
 "avatar", 
 "weird", 
 "banner3", 
@@ -56,7 +58,7 @@ var sites = {
 "crawford", 
 "diamond", 
 "dietcola", 
-"doom", 
+//"doom", 
 "double", 
 "doubleshorts", 
 "banner3-D", 
@@ -66,7 +68,7 @@ var sites = {
 "filter", 
 "fire_font-s",  
 "fuzzy", 
-"glenyn", 
+//"glenyn",  maybe
 "gothic",
 "gradient", 
 "graffiti", 
@@ -102,14 +104,14 @@ var sites = {
 "slscript", 
 
 "smscript", 
-"smslant", 
+//"smslant",  FIX
 "soft", 
 "speed", 
 "spliff", 
 "stacey", 
 "stampate", 
 "starwars", 
-"5lineoblique", 
+//"5lineoblique", 
 "stop", 
 "sub-zero", 
 "swan", 
@@ -122,7 +124,7 @@ var sites = {
 "impossible", 
 
 "dotmatrix", 
-"amcneko", 
+//"amcneko", 
 "amcaaa01", 
 "caligraphy", 
 "defleppard", 
@@ -135,12 +137,12 @@ var sites = {
 "sweet", 
 "alpha", 
 "isometric1", 
-"smisome1", 
+//"smisome1", 
 "blocks", 
 
 "alligator2", 
-"cosmic", 
-"sblood", 
+//"cosmic", 
+//"sblood", 
 "alligator"
 ];
 
@@ -171,6 +173,14 @@ function gen() {
     if(!init) {
       init = true;
       $(".after-text").fadeIn();
+    }
+    if(DEBUG) {
+      $("#debug_raw").html(payload.join("\n"));
+      document.location = document.location.toString().split('#')[0] + '#' + JSON.stringify({
+        font: fontDB[currentFont],
+        width: width,
+        text: copy.value
+      });
     }
   });
 }
@@ -221,9 +231,22 @@ function nextFont() {
 }
 
 window.onload = function(){
+  DEBUG = document.location.search.length > 0;
+
   preview = document.getElementById("preview");
   copy = document.getElementById("copy");
   copy.focus();
+
+  if(DEBUG) {
+    $("#debug_raw").css("display","block");
+  }
+
+  if(window.location.hash.length) {
+    var obj = JSON.parse(window.location.hash.slice(1));
+    currentFont = fontDB.indexOf(obj.font);
+    copy.value = obj.text;
+    gen();
+  }
 
   copy.onkeyup = function(){
     clearTimeout(itimeout);
