@@ -63,7 +63,6 @@ var
 "doubleshorts", 
 "banner3-D", 
 "3-d", 
-"drpepper", 
 "epic", 
 "filter", 
 "fire_font-s",  
@@ -84,7 +83,7 @@ var
 "ogre", 
 "pawp", 
 "peaks", 
-"pebbles", 
+//"pebbles", 
 "poison", 
 "puffy", 
 "red_phoenix", 
@@ -117,7 +116,7 @@ var
 "swan", 
 "thick", 
 "tiles", 
-"tinker-toy", 
+//"tinker-toy", 
 "trek", 
 "tubular",  
 "s-relief", 
@@ -130,7 +129,6 @@ var
 "defleppard", 
 "doh", 
 "broadway", 
-"acrobatic", 
 "3d_diagonal", 
 "fraktur", 
 "nvscript", 
@@ -140,10 +138,10 @@ var
 //"smisome1", 
 "blocks", 
 
-"alligator2", 
+"alligator2"
 //"cosmic", 
 //"sblood", 
-"alligator"
+//"alligator"
 ];
 
 var 
