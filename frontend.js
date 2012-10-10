@@ -59,7 +59,7 @@ var
 "diamond", 
 "dietcola", 
 //"doom", 
-"double", 
+//"double", 
 "doubleshorts", 
 "banner3-D", 
 "3-d", 
@@ -96,7 +96,7 @@ var
 "invita", 
 
 "santaclara", 
-"shadow", 
+//"shadow", 
 "shimrod", 
 "slant", 
 "slide", 
