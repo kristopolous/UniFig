@@ -1,5 +1,6 @@
 
 var 
+  clip,
   DEBUG = false,
   sites = {
   twitter: {
@@ -168,9 +169,12 @@ function gen() {
     payload = payload.split('\n');
     maxWidthCurrent = payload[0].length;
     preview.innerHTML = encode(payload);
+
     if(!init) {
       init = true;
-      $(".after-text").fadeIn();
+      $(".after-text").fadeIn(function() {
+        initClipboard();
+      });
     }
     if(DEBUG) {
       $("#debug_raw").html(payload.join("\n"));
@@ -228,6 +232,27 @@ function nextFont() {
   gen();
 }
 
+function initClipboard() {
+  clip = new ZeroClipboard.Client();
+  ZeroClipboard.setMoviePath("javascripts/ZeroClipboard.swf")
+  clip.setHandCursor( true );
+  clip.addEventListener('mouseOver', function (client) {
+    // update the text on mouse over
+    clip.setText($("#preview").html());  
+  });
+  if(DEBUG) {
+    clip.addEventListener('complete', function (client, text) {
+      console.log("Copied text to clipboard: " + text );
+    });
+  }
+
+  clip.glue( 'clipboard-button', 'clipboard-wrapper' );
+}
+
+function clipboard(){
+  clip.setText($("#preview").html());  
+}
+
 window.onload = function(){
   DEBUG = document.location.search.length > 0;
 
@@ -258,3 +283,4 @@ window.onload = function(){
 	  copy.focus();
 	}
 }
+

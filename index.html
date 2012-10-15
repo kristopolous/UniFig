@@ -14,6 +14,7 @@ body{text-align:center}
   #main-input{margin-bottom:1.5em}
   .after-text{display:none}
   #masthead{position:absolute;top:-50px;left:-50px;z-index:-1}
+  #clipboard-wrapper{position:relative}
 </style>
 </head>
 <body>
@@ -45,6 +46,9 @@ body{text-align:center}
   -->
   <div id=preview class=well> </div>
   <div id=debug_raw class=well> </div>
+  <div class=btn-group id=clipboard-wrapper>
+    <button onclick=clipboard() id=clipboard-button class=btn>Copy to Clipboard</button>
+  </div>
 </div>
 <!--
 <div class="row-fluid after-text">
@@ -56,6 +60,7 @@ body{text-align:center}
 -->
 </body>
 <script src=http://code.jquery.com/jquery-1.8.0.min.js></script>
+<script src=javascripts/ZeroClipboard.min.js></script>
 <script src=unifig.js></script>
 <script src=frontend.js></script>
 
