@@ -240,13 +240,26 @@ function initClipboard() {
     // update the text on mouse over
     clip.setText($("#preview").html());  
   });
-  if(DEBUG) {
-    clip.addEventListener('complete', function (client, text) {
+  clip.addEventListener('complete', function (client, text) {
+    if(DEBUG) {
       console.log("Copied text to clipboard: " + text );
+    }
+    $("#clipboard-notice").animate({
+      top: "10px",
+      height: "30px"
     });
-  }
+    $("body").animate({marginTop: "50px"});
+    setTimeout(function(){
+      $("#clipboard-notice").animate({
+        top: '-20px',
+        height: "0"
+      });
+      $("body").animate({marginTop: "0px"});
+    }, 2000);
+  });
 
   clip.glue( 'clipboard-button', 'clipboard-wrapper' );
+  $("#ZeroClipboardMovie_1").css('opacity',0.001);
 }
 
 function clipboard(){
