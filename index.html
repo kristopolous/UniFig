@@ -5,23 +5,25 @@
 <link rel=stylesheet href=bootstrap/css/bootstrap.css>
 <meta name="Description" content="The best site ever. You'll tell all your friends until you get restraining orders.">
 <style>
-body{text-align:center}
+  body{padding-top:30px;padding-bottom:60px}
   #headline,#preview{white-space:pre;font: 10px/10px 'lucida grande',tahoma,verdana,arial,sans-serif}
   #preview{display:inline-block;width:auto;margin-top:1em}
-  #headline{padding:3.5em 0 2em;margin:0 0 4em;color:#666c66;background:url("transp.png")}
+  #headline{color:#444c44;padding-bottom:3em}
   #about{position:fixed;top:0;right:0.5em}
   #debug_raw{display:none;white-space:pre;font-family:monospace}
   #main-input{margin-bottom:1.5em}
   .after-text{display:none}
   #masthead{position:absolute;top:-50px;left:-50px;z-index:-1}
   #clipboard-wrapper{position:relative}
-  #clipboard-notice{display:block;position:absolute;font-size:2em;top:-20px;left:20%;width:60%;height:0;overflow:hidden}
+  #clipboard-notice{display:none;line-height:1em;font-size:2em;width:80%;left:20%;height:0;overflow:hidden}
 </style>
 </head>
 <body>
   <div id=about><a href=https://github.com/kristopolous/UniFig>about</a></div>
   <img id=masthead src=unifig.png>
 <!-- What did you expect this thing to be? -->
+<div class="container">
+<div class="hero-unit span7 offset1">
 <div id=headline>&#9600;&#9619;&#9608;&#9600;&#9600;&#9619;&#9604;&#9617;&#9617;&#9617;&#9600;&#9619;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9600;&#9619;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9619;&#9600;&#9600;&#9619;&#9608;&#9600;&#9600;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9604;&#9617;&#9617;
 &#9617;&#9619;&#9608;&#9617;&#9617;&#9617;&#9619;&#9608;&#9617;&#9617;&#9617;&#9619;&#9608;&#9617;&#9617;&#9617;&#9617;&#9604;&#9604;&#9604;&#9617;&#9617;&#9617;&#9617;&#9617;&#9604;&#9604;&#9604;&#9604;&#9617;&#9617;&#9617;&#9619;&#9608;&#9617;&#9617;&#9604;&#9604;&#9617;&#9617;&#9604;&#9604;&#9604;&#9604;&#9617;&#9604;&#9604;&#9604;&#9617;&#9617;&#9617;&#9617;&#9619;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9604;&#9604;&#9604;&#9604;&#9617;&#9617;&#9604;&#9604;&#9604;&#9617;&#9604;&#9604;&#9604;&#9617;&#9604;&#9619;&#9619;&#9604;&#9617;
 &#9617;&#9619;&#9608;&#9600;&#9600;&#9600;&#9619;&#9604;&#9617;&#9617;&#9617;&#9619;&#9608;&#9617;&#9617;&#9604;&#9619;&#9617;&#9617;&#9600;&#9619;&#9604;&#9617;&#9604;&#9619;&#9617;&#9617;&#9617;&#9600;&#9600;&#9617;&#9617;&#9619;&#9608;&#9617;&#9604;&#9600;&#9617;&#9617;&#9617;&#9617;&#9600;&#9619;&#9604;&#9617;&#9617;&#9619;&#9617;&#9617;&#9617;&#9617;&#9617;&#9619;&#9608;&#9617;&#9617;&#9617;&#9617;&#9604;&#9619;&#9604;&#9604;&#9604;&#9619;&#9608;&#9617;&#9617;&#9600;&#9619;&#9604;&#9604;&#9600;&#9617;&#9617;&#9617;&#9619;&#9608;&#9617;&#9617;
@@ -30,36 +32,46 @@ body{text-align:center}
 &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9604;&#9604;&#9617;&#9619;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;
 &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9600;&#9600;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;
 </div>
-<div id=main-input>
-  <h3>Enter Some Text</h3>
-  <input id=copy type="text" placeholder="Type your Message">
+      <p>Update your status and send messages in creative whimsical fonts.</p>
+      <p>Blockytexts can be used wherever text can be: On twitter, Facebook, even over SMS.</p>
 </div>
-<div class="after-text">
-  <div class=btn-group>
-    <button onclick=prevFont() id=prev-font class="btn disabled">&#171; Previous Font</button>
-    <button onclick=nextFont() class=btn>Next Font &#187;</button>
-  </div>    
-  <!--
-  <div class=btn-group>
-    <button onclick=narrower() id=narrower class="btn">&#171; Thinner</button>
-    <button onclick=wider() id=wider class=btn>Wider &#187;</button>
-  </div>    
-  -->
-  <div id=preview class=well> </div>
-  <div id=debug_raw class=well> </div>
-  <div class=btn-group id=clipboard-wrapper>
-    <button onclick=clipboard() id=clipboard-button class=btn>Copy to Clipboard</button>
+</div>
+<div class="container">
+  <div class="offset2 span7">
+    <div id=main-input>
+      <h4>To Start, Just Type a Message Below</h4>
+      <input id=copy type="text" placeholder="Type your Message">
+    </div>
+    <div class="after-text">
+      <p>Next, use these buttons to pick your font</p>
+      <div class=btn-group>
+        <button onclick=prevFont() id=prev-font class="btn disabled">&#171; Previous Font</button>
+        <button onclick=nextFont() class=btn>Next Font &#187;</button>
+      </div>
+      <!--
+      <div class=btn-group>
+        <button onclick=narrower() id=narrower class="btn">&#171; Thinner</button>
+        <button onclick=wider() id=wider class=btn>Wider &#187;</button>
+      </div>    
+      -->
+      <div id=preview class=well> </div>
+      <div id=debug_raw class=well> </div>
+      <p>Finally, use this button to place the BlockyText in your clipboard.</p>
+      <div id=clipboard-notice class="alert alert-info">Blockytext copied to clipboard. Paste it as if it was normal text.</div>
+      <div class=btn-group id=clipboard-wrapper>
+        <button onclick=clipboard() id=clipboard-button class=btn>Copy to Clipboard</button>
+      </div>
+    </div>
+    <!--
+    <div class="row-fluid after-text">
+      <div class="span6 offset1">
+        <button class=btn>Post on Facebook</button>
+        <button class=btn>Tweet it</button>
+      </div>
+    </div>
+    -->
   </div>
-  <div id=clipboard-notice class="alert alert-info">Blockytext Copied to Clipboard!</div>
 </div>
-<!--
-<div class="row-fluid after-text">
-  <div class="span6 offset1">
-    <button class=btn>Post on Facebook</button>
-    <button class=btn>Tweet it</button>
-  </div>
-</div>
--->
 </body>
 <script src=http://code.jquery.com/jquery-1.8.0.min.js></script>
 <script src=javascripts/ZeroClipboard.min.js></script>

@@ -244,18 +244,16 @@ function initClipboard() {
     if(DEBUG) {
       console.log("Copied text to clipboard: " + text );
     }
-    $("#clipboard-notice").animate({
-      top: "10px",
-      height: "30px"
+    $("#clipboard-notice").css('display','block').animate({
+      height: "60px"
     });
-    $("body").animate({marginTop: "50px"});
     setTimeout(function(){
       $("#clipboard-notice").animate({
-        top: '-20px',
         height: "0"
+      }, function(){
+        this.style.display = 'none';
       });
-      $("body").animate({marginTop: "0px"});
-    }, 2000);
+    }, 8000);
   });
 
   clip.glue( 'clipboard-button', 'clipboard-wrapper' );
