@@ -158,6 +158,7 @@ var
   fontStack = [];
 
 function gen() {
+  $("#width").html(width);
   if(!copy.value.length) {
     return;
   }
@@ -188,14 +189,14 @@ function gen() {
 }
 
 function wider() {
-  width += 15;
+  width += 5;
   gen();
   $("#narrower").removeClass("disabled");
 }
 
 function narrower() {
   if(width > 25) {
-    width -= 15;
+    width -= 5;
     gen();
   } else {
     $("#narrower").addClass("disabled");
