@@ -79,13 +79,13 @@ function encode(all) {
   var
     iz, iy, ix,
     ret = [],
-    len = all[0].length,
+    len = Math.max.apply(this, $.map(all, function(m) {return m.length})),
     len_ones = ones.length,
     len_twos = twos.length,
     len_threes = threes.length,
     line_out,
     line_in;
-
+  
   for(iz = 0; iz < all.length; iz++) {
     line_out = [];
     line_in = all[iz];
