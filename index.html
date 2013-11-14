@@ -15,7 +15,7 @@
   #about{position:fixed;top:0;right:0em;background:#333;color:#eee;padding:0.5em 1em}
   #debug_raw{display:none;white-space:pre;font-family:monospace}
   #main-input{margin-bottom:1.5em}
-  .after-text{display:none}
+  #bare, .after-text{display:none}
   #masthead{position:absolute;top:-50px;left:-50px;z-index:-1}
   #clipboard-wrapper{position:relative}
   #clipboard-notice{display:none;line-height:1em;font-size:2em;width:80%;left:20%;height:0;overflow:hidden}
@@ -41,13 +41,18 @@
 </div>
 <div class="container">
   <div class="offset2 span7">
-      <h4>Ascii art convert</h4>
-      <textarea id=art placeholder="Ascii art here"></textarea><br/>
-      <button onclick="convertArt()">convert art</button>
     <div id=main-input>
-      <h4>To Start, Just Type a Message Below</h4>
-      <input id=copy type="text" placeholder="Type your Message">
+      <span>
+        <h4>Ascii art convert</h4>
+        <textarea id=art placeholder="Ascii art here"></textarea><br/>
+        <button onclick="convertArt()">convert art</button>
+      </span>
+      <span id="text-input">
+        <h4>Fancy Text</h4>
+        <input id=copy type="text" placeholder="Type your Message">
+      </span>
     </div>
+    <div id=bare class=well> </div>
     <div class="after-text">
       <p>Next, use these buttons to pick your font</p>
       <div class=btn-group>

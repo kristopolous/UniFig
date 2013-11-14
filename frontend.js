@@ -158,8 +158,7 @@ var
   fontStack = [];
 
 function convertArt(){
-  $("#preview").html(encode($("#art").val().split('\n')));
-  $(".after-text").fadeIn();
+  $("#bare").html(encode($("#art").val().split('\n'))).fadeIn();
 }
 
 function gen() {
