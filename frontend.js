@@ -157,6 +157,11 @@ var
   copy, 
   fontStack = [];
 
+function convertArt(){
+  $("#preview").html(encode($("#art").val().split('\n')));
+  $(".after-text").fadeIn();
+}
+
 function gen() {
   $("#width").html(width);
   if(!copy.value.length) {
