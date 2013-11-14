@@ -22,4 +22,7 @@ The source code is here, for those that like that kind of thing. Not me thought,
 
 Bye.
 
-Oh yeah, the link: http://blockytext.com
+Oh yeah, the link: http://blockytext.com --- actually I never renewd it.
+
+
+There's also a new, much more useful feature:  It converts ascii art to unicode art.

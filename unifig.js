@@ -83,9 +83,19 @@ function encode(all) {
     len_ones = ones.length,
     len_twos = twos.length,
     len_threes = threes.length,
+    // left margin is the least amount of left whitespace on all lines
+    left_margin = Math.min.apply(this, $.map(all, function(m) { return m.search(/[^\s]/) })),
     line_out,
     line_in;
   
+  len -= left_margin;
+
+  // make sure that we have equal whitespace to form a nice box.
+  all = $.map(all, function(line) {
+    line = line.slice(left_margin);
+    return line + Array(Math.max(1 + len - line.length, 0)).join(' ');
+  });
+
   for(iz = 0; iz < all.length; iz++) {
     line_out = [];
     line_in = all[iz];
