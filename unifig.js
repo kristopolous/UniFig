@@ -137,5 +137,5 @@ function encode(all) {
     }
     ret.push(line_out.join(''));
   }
-  return ret.join("\n");
+  return ret.join("&nbsp;\n");
 }
